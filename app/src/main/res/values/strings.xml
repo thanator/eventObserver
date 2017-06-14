@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EventsCreator</string>
+    <string name="action_settings">Settings</string>
+    <string name="what_wil_do">Что будем делать?</string>
+    <string name="we_will_do">делать будем...</string>
+    <string name="we_will_call">Назовёмся:</string>
+    <string name="try_to_imagine">название</string>
+    <string name="choose_date">Введите дату проведения мероприятия:</string>
+    <string name="from_text">С:</string>
+    <string name="until_text">По:</string>
+</resources>
