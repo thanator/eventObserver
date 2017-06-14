@@ -32,6 +32,12 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventViewHold
 
         eventViewHolder.bindView(mEvents.get(i));
 
+        eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

@@ -8,4 +8,7 @@
     <string name="choose_date">Введите дату проведения мероприятия:</string>
     <string name="from_text">С:</string>
     <string name="until_text">По:</string>
+    <string name="what_will_do">Что делаем?</string>
+    <string name="delete_nahooi">Удаляем</string>
+    <string name="izmenit">Изменяем</string>
 </resources>
