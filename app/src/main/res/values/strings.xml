@@ -11,4 +11,6 @@
     <string name="what_will_do">Что делаем?</string>
     <string name="delete_nahooi">Удаляем</string>
     <string name="izmenit">Изменяем</string>
+    <string name="ready">Готово</string>
+    <string name="dd_mm_yyyy">DD.MM.YYYY</string>
 </resources>

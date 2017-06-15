@@ -1,5 +1,6 @@
 package com.tan_ds.eventscreator;
 
+import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,11 +23,13 @@ import static com.tan_ds.eventscreator.VeryGlobalVariables.VICTIM;
 
 public class DoSomeThingWithEventActivity extends AppCompatActivity {
 
-    private TextView mWhatToDoWithEvent;
-    private EditText mWhatToDo, mDateFrom, mDateTo;
+    private TextView mWhatToDoWithEvent , mDateFrom, mDateTo;
+    private EditText mWhatToDo, mNameEvent;
     private EditText[] mEditTexts;
     private Button mButton;
     private int mType, mVictim;
+    private static final int ID = 1;
+    private static final int DATE_FROM = 1, DATE_TO = 2;
 
     public static Intent newIntent(Context context){
         Intent intent = new Intent(context, DoSomeThingWithEventActivity.class);
@@ -42,16 +45,19 @@ public class DoSomeThingWithEventActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_do_something_with_event);
         mWhatToDoWithEvent = (TextView) findViewById(R.id.what_to_do_with_event);
-        mWhatToDo = (EditText) findViewById(R.id.event_name_edit_text);
-        mDateFrom = (EditText) findViewById(R.id.date_edit_from);
-        mDateTo = (EditText) findViewById(R.id.date_edit_to);
+        mNameEvent = (EditText) findViewById(R.id.event_name_edit_text);
+        mWhatToDo = (EditText) findViewById(R.id.what_to_do_edit_text);
+        mDateFrom = (TextView) findViewById(R.id.date_edit_from);
+        mDateTo = (TextView) findViewById(R.id.date_edit_to);
         mButton = (Button) findViewById(R.id.event_button);
 
 
-        mEditTexts = new EditText[] {mWhatToDo, mDateFrom, mDateTo};
+        mEditTexts = new EditText[] {mWhatToDo, mNameEvent};
         for (EditText editText : mEditTexts) {
             editText.addTextChangedListener(new TextWatcherImpl());
         }
+        mDateTo.addTextChangedListener(new TextWatcherImpl());
+        mDateFrom.addTextChangedListener(new TextWatcherImpl());
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +67,23 @@ public class DoSomeThingWithEventActivity extends AppCompatActivity {
         });
 
     }
+
+    public void onclick_from(View view){
+        DialogFragment dialogFragment = new DatePickerFragment();
+        Bundle args = new Bundle();
+        args.putInt(TYPE, DATE_FROM);
+        dialogFragment.setArguments(args);
+        dialogFragment.show(getSupportFragmentManager(), "date picker");
+    }
+
+    public void onclick_to(View view){
+        DialogFragment dialogFragment = new DatePickerFragment();
+        Bundle args = new Bundle();
+        args.putInt(TYPE, DATE_TO);
+        dialogFragment.setArguments(args);
+        dialogFragment.show(getSupportFragmentManager(), "date picker");
+    }
+
 
     private void fine(){
 
@@ -86,7 +109,16 @@ public class DoSomeThingWithEventActivity extends AppCompatActivity {
                     break;
                 }
             }
+            if (mDateFrom.getText().equals(getText(R.string.dd_mm_yyyy))){
+                buttonEnabled = false;
+            }
+            if (mDateTo.getText().equals(getText(R.string.dd_mm_yyyy))){
+                buttonEnabled = false;
+            }
             mButton.setEnabled(buttonEnabled);
+        }
+        private boolean whoIsOlder(String dateOne, String dateTwo){
+            return true;
         }
     }
 }

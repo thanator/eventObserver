@@ -63,7 +63,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:paddingLeft="4dp"
+                    android:paddingLeft="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -71,7 +71,7 @@
                     android:text="@string/what_wil_do"/>
                 <EditText
                     android:id="@+id/what_to_do_edit_text"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginRight="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -96,26 +96,45 @@
                    <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:orientation="horizontal">
+                       android:orientation="horizontal"
+                       android:paddingLeft="8dp"
+                       android:paddingRight="8dp">
 
-                       <EditText
-                           android:layout_marginRight="24dp"
-                           android:layout_marginLeft="24dp"
+                       <TextView
+                           android:layout_width="24dp"
+                           android:layout_height="wrap_content"
+                           android:text="@string/from_text"
+                           android:gravity="right"/>
+
+                       <TextView
+
                            android:id="@+id/date_edit_from"
-                           android:layout_width="match_parent"
+                           android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:ems="10"
-                           android:inputType="date"
-                           android:layout_weight="1"/>
-                       <EditText
-                           android:layout_marginRight="24dp"
-                           android:layout_marginLeft="24dp"
+                           android:layout_weight="1"
+                           android:clickable="true"
+                           android:focusable="true"
+                           android:onClick="onclick_from"
+                           android:gravity="center"
+                           android:text="@string/dd_mm_yyyy"/>
+                       <TextView
+                           android:layout_width="24dp"
+                           android:layout_height="wrap_content"
+                           android:text="@string/until_text"
+                           android:gravity="right"/>
+                       <TextView
+
                            android:id="@+id/date_edit_to"
-                           android:layout_width="match_parent"
+                           android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:ems="10"
-                           android:inputType="date"
-                           android:layout_weight="1"/>
+                           android:layout_weight="1"
+                           android:clickable="true"
+                           android:focusable="false"
+                           android:onClick="onclick_to"
+                           android:gravity="center"
+                           android:text="@string/dd_mm_yyyy"/>
                    </LinearLayout>
                </LinearLayout>
             </LinearLayout>
