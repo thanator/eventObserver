@@ -7,7 +7,7 @@ package com.tan_ds.eventscreator;
 public class Event {
 
     public long id;
-    public long date_from, date_to;
+    public int date_from, date_to;
     public String name, what_to_do;
 
     @Override
@@ -27,13 +27,12 @@ public class Event {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (date_from ^ (date_from >>> 32));
-        result = 31 * result + (int) (date_to ^ (date_to >>> 32));
+        result = 31 * result + date_from;
+        result = 31 * result + date_to;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (what_to_do != null ? what_to_do.hashCode() : 0);
         return result;
     }
-
 
     @Override
     public String toString() {
