@@ -50,4 +50,19 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventViewHold
         mEvents.addAll(events);
         notifyDataSetChanged();
     }
+
+    public void setEvent(Event event){
+        mEvents.add(event);
+        notifyItemInserted(mEvents.size() - 1);
+        notifyDataSetChanged();
+    }
+    public void deleteEvent (int pos){
+        mEvents.remove(pos);
+        notifyItemRemoved(pos);
+        notifyDataSetChanged();
+    }
+    public void updateEvent(Event event, int pos){
+        mEvents.set(pos, event);
+        notifyDataSetChanged();
+    }
 }

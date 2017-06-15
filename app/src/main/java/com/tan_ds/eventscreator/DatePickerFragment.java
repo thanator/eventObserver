@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.tan_ds.eventscreator.VeryGlobalVariables.TYPE;
 
@@ -19,6 +21,21 @@ public class DatePickerFragment extends DialogFragment
     private int mType;
 
     private static final int DATE_FROM = 1, DATE_TO = 2;
+
+    private static Map<Integer, String> monthMap = new HashMap<Integer, String>(){{
+        put(0, "Январь");
+        put(1, "Февраль");
+        put(2, "Март");
+        put(3, "Апрель");
+        put(4, "Май");
+        put(5, "Июнь");
+        put(6, "Июль");
+        put(7, "Август");
+        put(8, "Сентябрь");
+        put(9, "Октябрь");
+        put(10, "Ноябрь");
+        put(11, "Декабрь");
+    }};
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -50,13 +67,23 @@ public class DatePickerFragment extends DialogFragment
     public void onDateSet(android.widget.DatePicker datePicker, int year,
                           int month, int day) {
 
-        TextView textView;
+        TextView yearView, monthView, dayView;
         if (mType == DATE_FROM) {
-            textView = (TextView) getActivity().findViewById(R.id.date_edit_from);
-            textView.setText(day + "." + month+ "." + year);
+            yearView = (TextView) getActivity().findViewById(R.id.year_from);
+            monthView = (TextView) getActivity().findViewById(R.id.month_from);
+            dayView = (TextView) getActivity().findViewById(R.id.day_from);
+
+            yearView.setText(""+year);
+            monthView.setText(""+monthMap.get(month));
+            dayView.setText(""+day);
         } else if (mType == DATE_TO){
-            textView = (TextView) getActivity().findViewById(R.id.date_edit_to);
-            textView.setText(day + "." + month+ "." + year);
+            yearView = (TextView) getActivity().findViewById(R.id.year_to);
+            monthView = (TextView) getActivity().findViewById(R.id.month_to);
+            dayView = (TextView) getActivity().findViewById(R.id.day_to);
+
+            yearView.setText(""+year);
+            monthView.setText(""+monthMap.get(month));
+            dayView.setText(""+day);
         }
     }
 }

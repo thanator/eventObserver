@@ -54,7 +54,6 @@ public class EventLoader extends AsyncTaskLoader<List<Event>> {
             EventInflater.fillList(cursor, events);
             cursor.close();
         }
-
         return events;
     }
 

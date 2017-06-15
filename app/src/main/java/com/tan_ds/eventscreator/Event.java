@@ -44,4 +44,44 @@ public class Event {
                 ", what_to_do='" + what_to_do + '\'' +
                 '}';
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getDate_from() {
+        return date_from;
+    }
+
+    public void setDate_from(int date_from) {
+        this.date_from = date_from;
+    }
+
+    public int getDate_to() {
+        return date_to;
+    }
+
+    public void setDate_to(int date_to) {
+        this.date_to = date_to;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getWhat_to_do() {
+        return what_to_do;
+    }
+
+    public void setWhat_to_do(String what_to_do) {
+        this.what_to_do = what_to_do;
+    }
 }
