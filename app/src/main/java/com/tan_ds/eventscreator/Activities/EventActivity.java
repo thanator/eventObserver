@@ -134,12 +134,15 @@ public class EventActivity extends AppCompatActivity implements ChoosingWhatToDo
     }
 
     private void deleteEvent(long id){
-        final String[] args = new String[]{Long.toString(id)};
-        ContentResolver contentResolver = this.getContentResolver();
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED){
-            contentResolver.delete(CalendarContract.Events.CONTENT_EXCEPTION_URI,
-                    CalendarContract.Events._ID + " = ?", args);
+            final String[] args = new String[]{Long.toString(id)};
+            ContentResolver contentResolver = this.getContentResolver();
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+                contentResolver.delete(
+                        CalendarContract.Events.CONTENT_URI,
+                        CalendarContract.Events._ID + " = ? ",
+                        args
+                );
         }
     }
 
