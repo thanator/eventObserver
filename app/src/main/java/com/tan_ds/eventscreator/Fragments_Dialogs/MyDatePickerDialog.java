@@ -1,13 +1,16 @@
-package com.tan_ds.eventscreator;
+package com.tan_ds.eventscreator.Fragments_Dialogs;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+
+import com.tan_ds.eventscreator.R;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,7 +18,7 @@ import java.util.Map;
 
 import static com.tan_ds.eventscreator.VeryGlobalVariables.TYPE;
 
-public class DatePickerFragment extends DialogFragment
+public class MyDatePickerDialog extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     private int mType;
@@ -44,6 +47,8 @@ public class DatePickerFragment extends DialogFragment
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
+
+        Log.w("Dialog: ", "" + c.getTimeInMillis());
 
 
         Bundle args = this.getArguments();

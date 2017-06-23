@@ -10,23 +10,29 @@ import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.tan_ds.eventscreator.Event;
+
+import com.tan_ds.eventscreator.Fragments_Dialogs.ChoosingWhatToDoDialog;
+import com.tan_ds.eventscreator.Model.Event;
 import com.tan_ds.eventscreator.EventLoader;
 import com.tan_ds.eventscreator.EventRecyclerViewAdapter;
 import com.tan_ds.eventscreator.R;
 
 import java.util.List;
 
-public class EventActivity extends AppCompatActivity {
+import static com.tan_ds.eventscreator.VeryGlobalVariables.VICTIM;
+
+public class EventActivity extends AppCompatActivity implements ChoosingWhatToDoDialog.onCompleteListener{
 
     private RecyclerView mRecyclerView;
     private EventRecyclerViewAdapter mAdapter;
@@ -34,9 +40,6 @@ public class EventActivity extends AppCompatActivity {
 
     private final static int UPDATE = 1, ADD = 0;
     public final static String EVENT = "10";
-
-
-
     public final static String POSITION = "11";
 
 
@@ -49,10 +52,11 @@ public class EventActivity extends AppCompatActivity {
         checkEventPermission();
 
         mAdapter = new EventRecyclerViewAdapter();
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(llm);
         mRecyclerView.setAdapter(mAdapter);
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +91,13 @@ public class EventActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onComplete(int position) {
+        mAdapter.deleteEvent(position);
+        deleteEvent(position);
+
+    }
+
 
     private class EventLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<Event>>{
         @Override
@@ -102,7 +113,7 @@ public class EventActivity extends AppCompatActivity {
 
         @Override
         public void onLoaderReset(Loader<List<Event>> loader) {
-
+            Log.v("LoaderCallbacks: ", "LoaderReset");
         }
     }
 
@@ -111,10 +122,41 @@ public class EventActivity extends AppCompatActivity {
        if(resultCode == RESULT_OK){
            if (requestCode == ADD){
                 final Event event = (Event) data.getSerializableExtra(EVENT);
-                mAdapter.setEvent(event);
-                addEvent(event);
+               addEvent(event);
+               mAdapter.setEvent(event);
+           } else{
+               final Event event = (Event) data.getSerializableExtra(EVENT);
+               int victim = data.getIntExtra(VICTIM, -1);
+               updateEvent(event);
+               mAdapter.updateEvent(event, victim);
            }
        }
+    }
+
+    private void deleteEvent(long id){
+        final String[] args = new String[]{Long.toString(id)};
+        ContentResolver contentResolver = this.getContentResolver();
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED){
+            contentResolver.delete(CalendarContract.Events.CONTENT_EXCEPTION_URI,
+                    CalendarContract.Events._ID + " = ?", args);
+        }
+    }
+
+    private void updateEvent(Event event){
+        ContentResolver contentResolver = this.getContentResolver();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CalendarContract.Events.DTSTART, event.getDate_from());
+        contentValues.put(CalendarContract.Events.DTEND, event.getDate_to());
+        contentValues.put(CalendarContract.Events.TITLE, event.getName());
+        contentValues.put(CalendarContract.Events.DESCRIPTION, event.getWhat_to_do());
+        if(ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED){
+            contentResolver.update(CalendarContract.Events.CONTENT_URI, contentValues,
+                    CalendarContract.Events._ID + " = ?", new String[]{String.valueOf(event.getId())});
+        }
+
     }
 
     private void addEvent(Event event){
@@ -131,7 +173,12 @@ public class EventActivity extends AppCompatActivity {
                 Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             contentResolver.insert(CalendarContract.Events.CONTENT_URI, contentValues);
         }
+
     }
+    public FragmentManager getThisShit(){
+        return getSupportFragmentManager();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

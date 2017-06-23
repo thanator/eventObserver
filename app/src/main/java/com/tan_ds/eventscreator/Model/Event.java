@@ -1,14 +1,19 @@
-package com.tan_ds.eventscreator;
+package com.tan_ds.eventscreator.Model;
+
+import java.io.Serializable;
 
 /**
  * Created by Tan-DS on 6/14/2017.
  */
 
-public class Event {
+public class Event implements Serializable {
 
-    public long id;
-    public int date_from, date_to;
-    public String name, what_to_do;
+    private long id;
+    private long calendarId;
+    private  long date_from, date_to;
+    private  String name;
+    private String what_to_do;
+    private String timeZone;
 
     @Override
     public boolean equals(Object o) {
@@ -18,19 +23,24 @@ public class Event {
         Event event = (Event) o;
 
         if (id != event.id) return false;
+        if (calendarId != event.calendarId) return false;
         if (date_from != event.date_from) return false;
         if (date_to != event.date_to) return false;
         if (name != null ? !name.equals(event.name) : event.name != null) return false;
-        return what_to_do != null ? what_to_do.equals(event.what_to_do) : event.what_to_do == null;
+        if (what_to_do != null ? !what_to_do.equals(event.what_to_do) : event.what_to_do != null)
+            return false;
+        return timeZone != null ? timeZone.equals(event.timeZone) : event.timeZone == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + date_from;
-        result = 31 * result + date_to;
+        result = 31 * result + (int) (calendarId ^ (calendarId >>> 32));
+        result = 31 * result + (int) (date_from ^ (date_from >>> 32));
+        result = 31 * result + (int) (date_to ^ (date_to >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (what_to_do != null ? what_to_do.hashCode() : 0);
+        result = 31 * result + (timeZone != null ? timeZone.hashCode() : 0);
         return result;
     }
 
@@ -45,6 +55,14 @@ public class Event {
                 '}';
     }
 
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
+    }
+
     public long getId() {
         return id;
     }
@@ -53,19 +71,27 @@ public class Event {
         this.id = id;
     }
 
-    public int getDate_from() {
+    public long getCalendarId() {
+        return calendarId;
+    }
+
+    public void setCalendarId(long calendarId) {
+        this.calendarId = calendarId;
+    }
+
+    public long getDate_from() {
         return date_from;
     }
 
-    public void setDate_from(int date_from) {
+    public void setDate_from(long date_from) {
         this.date_from = date_from;
     }
 
-    public int getDate_to() {
+    public long getDate_to() {
         return date_to;
     }
 
-    public void setDate_to(int date_to) {
+    public void setDate_to(long date_to) {
         this.date_to = date_to;
     }
 

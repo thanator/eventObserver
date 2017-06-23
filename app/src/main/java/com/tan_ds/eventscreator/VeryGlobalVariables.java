@@ -7,5 +7,5 @@ import android.app.Application;
  */
 
 public class VeryGlobalVariables extends Application {
-    protected  static final String VICTIM = "victim", TYPE = "type";
+    public  static final String VICTIM = "victim", TYPE = "type";
 }

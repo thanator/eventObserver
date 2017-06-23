@@ -12,7 +12,8 @@ import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.EventLog;
+
+import com.tan_ds.eventscreator.Model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +24,14 @@ import java.util.List;
 
 public class EventLoader extends AsyncTaskLoader<List<Event>> {
 
-    private final EventContentObserver mEventObserver;
+    //private final EventContentObserver mEventObserver;
 
     public EventLoader(Context context) {
         super(context);
-        mEventObserver = new EventContentObserver();
+     /*   mEventObserver = new EventContentObserver();
         context.getContentResolver().registerContentObserver(
                 CalendarContract.Events.CONTENT_URI, false, mEventObserver
-        );
+        );*/
     }
 
     @Override
@@ -42,13 +43,14 @@ public class EventLoader extends AsyncTaskLoader<List<Event>> {
     @Override
     protected void onReset() {
         super.onReset();
-        getContext().getContentResolver().unregisterContentObserver(mEventObserver);
+        //getContext().getContentResolver().unregisterContentObserver(mEventObserver);
     }
 
     @Override
     public List<Event> loadInBackground() {
 
         List<Event> events = new ArrayList<>();
+
         Cursor cursor = getEventCursor();
         if (cursor != null){
             EventInflater.fillList(cursor, events);
@@ -61,7 +63,8 @@ public class EventLoader extends AsyncTaskLoader<List<Event>> {
         ContentResolver resolver = getContext().getContentResolver();
 
         Cursor cursor = null;
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED){
             cursor = resolver.query(
               CalendarContract.Events.CONTENT_URI, null, null, null, null
             );

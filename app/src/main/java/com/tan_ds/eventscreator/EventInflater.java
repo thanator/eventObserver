@@ -3,6 +3,8 @@ package com.tan_ds.eventscreator;
 import android.database.Cursor;
 import android.provider.CalendarContract;
 
+import com.tan_ds.eventscreator.Model.Event;
+
 import java.util.List;
 
 /**
@@ -22,11 +24,11 @@ public class EventInflater {
 
     private static Event createEventFromCursor(Cursor cursor){
         Event event = new Event();
-        event.id = getLong(cursor, CalendarContract.Events._ID);
-        event.name = getString(cursor, CalendarContract.Events.TITLE);
-        event.date_from = getInt(cursor, CalendarContract.Events.DTSTART);
-        event.date_to = getInt(cursor, CalendarContract.Events.DTEND);
-        event.what_to_do = getString(cursor, CalendarContract.Events.DESCRIPTION);
+        event.setId(getLong(cursor, CalendarContract.Events._ID));
+        event.setName(getString(cursor, CalendarContract.Events.TITLE));
+        event.setDate_from(getInt(cursor, CalendarContract.Events.DTSTART));
+        event.setDate_to(getInt(cursor, CalendarContract.Events.DTEND));
+        event.setWhat_to_do(getString(cursor, CalendarContract.Events.DESCRIPTION));
         return event;
     }
 

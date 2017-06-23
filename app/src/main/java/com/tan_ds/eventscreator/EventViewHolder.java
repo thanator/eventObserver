@@ -2,10 +2,15 @@ package com.tan_ds.eventscreator;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tan_ds.eventscreator.Model.Event;
+
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -32,8 +37,23 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         Date dateFrom, dateTo;
         dateFrom = new Date(event.getDate_from());
         dateTo = new Date(event.getDate_to());
+
+           /*Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        newEvent.setDate_from(calendar.getTimeInMillis());
+*/
+
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(mContext);
-        mWhenToDoBeginEvent.setText(dateFormat.format(dateFrom));
+
+        mWhenToDoBeginEvent.setText(getDate(event.getDate_from()));
         mWhenToDoEndEvent.setText(dateFormat.format(dateTo));
+    }
+
+    private static String getDate(long millisec){
+        Log.w("Holder: ", ""+millisec);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millisec);
+        return format.format(calendar.getTime());
     }
 }

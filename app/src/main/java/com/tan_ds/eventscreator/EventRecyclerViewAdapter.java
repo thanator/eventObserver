@@ -1,12 +1,22 @@
 package com.tan_ds.eventscreator;
 
+import android.support.v4.app.DialogFragment;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.tan_ds.eventscreator.Activities.EventActivity;
+import com.tan_ds.eventscreator.Fragments_Dialogs.ChoosingWhatToDoDialog;
+import com.tan_ds.eventscreator.Model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.tan_ds.eventscreator.VeryGlobalVariables.VICTIM;
 
 /**
  * Created by Tan-DS on 6/14/2017.
@@ -28,16 +38,26 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventViewHold
     }
 
     @Override
-    public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
+    public void onBindViewHolder(final EventViewHolder eventViewHolder, final int i) {
 
         eventViewHolder.bindView(mEvents.get(i));
 
         eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Toast.makeText(v.getContext(), ""+ i, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putInt(VICTIM, i);
+                DialogFragment dialogFragment = new ChoosingWhatToDoDialog();
+                dialogFragment.setArguments(args);
+                dialogFragment.show(((EventActivity)eventViewHolder.itemView.getContext()).getThisShit(), "Choosing");
             }
         });
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
