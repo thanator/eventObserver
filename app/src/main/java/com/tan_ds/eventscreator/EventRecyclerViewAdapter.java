@@ -45,7 +45,6 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventViewHold
         eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(v.getContext(), ""+ i, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
                 args.putInt(VICTIM, i);
                 DialogFragment dialogFragment = new ChoosingWhatToDoDialog();

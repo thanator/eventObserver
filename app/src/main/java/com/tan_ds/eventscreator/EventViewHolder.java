@@ -38,11 +38,6 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         dateFrom = new Date(event.getDate_from());
         dateTo = new Date(event.getDate_to());
 
-           /*Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        newEvent.setDate_from(calendar.getTimeInMillis());
-*/
-
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(mContext);
 
         mWhenToDoBeginEvent.setText(getDate(event.getDate_from()));
@@ -51,7 +46,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
 
     private static String getDate(long millisec){
         Log.w("Holder: ", ""+millisec);
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(millisec);
         return format.format(calendar.getTime());

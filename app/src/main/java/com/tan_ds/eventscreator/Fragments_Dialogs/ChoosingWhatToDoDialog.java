@@ -82,7 +82,6 @@ public class ChoosingWhatToDoDialog extends DialogFragment{
                 });
 
 
-
         return builder.create();
     }
 

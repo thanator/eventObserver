@@ -24,14 +24,8 @@ import java.util.List;
 
 public class EventLoader extends AsyncTaskLoader<List<Event>> {
 
-    //private final EventContentObserver mEventObserver;
-
     public EventLoader(Context context) {
         super(context);
-     /*   mEventObserver = new EventContentObserver();
-        context.getContentResolver().registerContentObserver(
-                CalendarContract.Events.CONTENT_URI, false, mEventObserver
-        );*/
     }
 
     @Override
@@ -43,7 +37,6 @@ public class EventLoader extends AsyncTaskLoader<List<Event>> {
     @Override
     protected void onReset() {
         super.onReset();
-        //getContext().getContentResolver().unregisterContentObserver(mEventObserver);
     }
 
     @Override
@@ -71,17 +64,4 @@ public class EventLoader extends AsyncTaskLoader<List<Event>> {
         }
         return cursor;
     }
-
-    private class EventContentObserver extends ContentObserver{
-
-        public EventContentObserver() {
-            super(new Handler(Looper.getMainLooper()));
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            onContentChanged();
-        }
-    }
-
 }
